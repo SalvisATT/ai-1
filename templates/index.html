@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Story Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        label, input, button {
+            margin: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .story-container {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+        }
+        .story-bubble {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+            display: inline-block;
+        }
+        .input-container {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        async function startStory() {
+            const theme = document.getElementById("theme").value;
+            const genre = document.getElementById("genre").value;
+            const setting = document.getElementById("setting").value;
+            
+            const response = await fetch("/start_story", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ theme, genre, setting })
+            });
+            
+            const data = await response.json();
+            displayStory(data.story);
+        }
+        
+        async function continueStory() {
+            const user_input = document.getElementById("user_input").value;
+            
+            const response = await fetch("/continue_story", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_input })
+            });
+            
+            const data = await response.json();
+            displayStory(data.story);
+            document.getElementById("user_input").value = "";
+            if (data.ended) {
+                alert("The story has ended!");
+            }
+        }
+        
+        async function endStory() {
+            const response = await fetch("/end_story", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" }
+            });
+            
+            const data = await response.json();
+            displayStory(data.story);
+            alert("The story has ended!");
+        }
+        
+        function displayStory(text) {
+            const storyContainer = document.getElementById("story");
+            const bubble = document.createElement("div");
+            bubble.className = "story-bubble";
+            bubble.innerText = text;
+            storyContainer.appendChild(bubble);
+        }
+    async function downloadPDF() {
+        const response = await fetch("/download_story");
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "generated_story.pdf";
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } else {
+            alert("No story available to download.");
+        }
+    }
+    </script>
+</head>
+<body>
+    <h1>AI Story Generator</h1>
+    <div>
+        <label>Theme: <input type="text" id="theme"></label><br>
+        <label>Genre: <input type="text" id="genre"></label><br>
+        <label>Setting: <input type="text" id="setting"></label><br>
+        <button onclick="startStory()">Start Story</button>
+    </div>
+    <div class="story-container" id="story"></div>
+    <div class="input-container">
+        <label>Continue the story: <input type="text" id="user_input"></label>
+        <button onclick="continueStory()">Continue</button>
+        <button onclick="endStory()" style="background-color: #d9534f;">End Story</button>
+        <button onclick="downloadPDF()" style="background-color: #007bff;">Download PDF</button>
+    </div>
+</body>
+</html>
