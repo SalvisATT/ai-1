@@ -17,7 +17,7 @@ This is a **Flask-based web application** that generates interactive stories usi
 
 ### 🔹 1. Clone the Repository
 ```sh
-git clone https://github.com/yourusername/flask-story-generator.git
+git clone git@github.com:SalvisATT/ai-1.git
 cd flask-story-generator
 ```
 
