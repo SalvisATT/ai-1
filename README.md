@@ -13,12 +13,14 @@ This is a **Flask-based web application** that generates interactive stories usi
 
 ---
 
-## 🛠️ Setup & Installation
+## 🛠️ Setup & Installation        
+
+### needs to download Ollama and olama pull mistral before starting
 
 ### 🔹 1. Clone the Repository
 ```sh
 git clone git@github.com:SalvisATT/ai-1.git
-cd flask-story-generator
+cd flask-story-generator         
 ```
 
 ### 🔹 2. Create and Activate a Virtual Environment
