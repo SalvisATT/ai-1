@@ -1,6 +1,16 @@
 # 📖 Flask Story Generator
+---
+📝 Problem Statement
 
-This is a **Flask-based web application** that generates interactive stories using the **Ollama LLM (Mistral model)**. Users can start a story, continue it with their input, provide feedback, and download the final story as a **PDF**.
+Creative writing can be challenging, especially when trying to generate engaging and coherent stories. Writers often face writer's block, lack of inspiration, or difficulty maintaining story flow. Additionally, interactive storytelling requires dynamic responses to user inputs, which can be difficult to achieve manually.
+
+💡 Why AI?
+
+AI, particularly large language models (LLMs), is well-suited for generating creative content. It can:
+✔️ Generate unique story ideas based on themes, genres, and settings.
+✔️ Maintain coherence while allowing dynamic user input.
+✔️ Enhance engagement by providing varied and unpredictable story developments.
+✔️ Personalize storytelling based on feedback and preferences.
 
 ---
 
@@ -130,3 +140,9 @@ To stop the Flask server, press `CTRL + C` in the terminal.
 This project is **open-source** and free to use.
 
 📌 *Happy Storytelling! ✨*
+
+
+
+Next Updates would be creating image and audio based on generated enviroment features from the text.
+
+
